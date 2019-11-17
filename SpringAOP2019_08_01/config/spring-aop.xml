@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- ioc -->
+    <bean id="UserService" class="com.oracle.aop.service.impl.UserServiceImpl" />
+    <bean id="GoodsServiceImpl" class="com.oracle.aop.service.impl.GoodsServiceImpl"></bean>
+    <bean id="UserEnhance" class="com.oracle.aop.enhance.UserEnhance"></bean>
+   
+    <!-- AOP配置 
+    aop	切面配置，aspectJ框架
+    -->
+    
+    <!-- 
+    		强制使用cglib进行动态代理
+     <aop:config proxy-target-class="true"> -->
+     <!--  默认使用jdk的动态代理 -->
+
+<bean id="LogAdvice" class="com.oracle.aop.memorylog.LogAdvice">
+ 
+    
+</bean>
+<aop:config>
+<!-- 指定aop切面配置 定义一个切面实例  指定使用具体哪一个增强类进行增强-->
+<aop:aspect ref="LogAdvice" >
+<!-- pintcut 具体切面的表达式 
+execution 运行
+* 访问权限任意
+包路径
+*所有类
+*所有方法
+(..)参数任意 返回值任意
+
+
+
+-->
+<aop:pointcut expression="execution(* com.oracle.aop.service.impl.*.add*(..))" id="addCut" />
+<aop:after-returning method="after" pointcut-ref="addCut" arg-names="joinPoint,object" returning="object"/>
+
+
+
+
+<aop:pointcut expression="execution(* com.oracle.aop.service.impl.*.insert*(..))" id="insertCut" />
+<aop:after-returning method="after" pointcut-ref="insertCut" arg-names="joinPoint,object" returning="object"/>
+
+
+<aop:pointcut expression="execution(* com.oracle.aop.service.impl.*.delete*(..))" id="saveCut" />
+<aop:after-returning method="after" pointcut-ref="saveCut" arg-names="joinPoint,object" returning="object"/>
+</aop:aspect>
+
+</aop:config>
+       
+
+       
+       
+    </beans>

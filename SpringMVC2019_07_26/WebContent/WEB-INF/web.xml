@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>SpringMVC2019_07_26</display-name>
+<!-- 配置springmvc的核心控制器  dispatcherServlet,指定请求的拦截后缀 -->
+  <servlet>
+  <servlet-name>dispatcherServlet</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <init-param>
+  <!-- 配置框架启动参数  参数路径是springmvc的配置文件的路径 -->
+  <param-name>contextConfigLocation</param-name>
+ <param-value>classpath:springmvc.xml</param-value>
+  
+  </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>dispatcherServlet</servlet-name>
+  <url-pattern>*.do</url-pattern>
+  
+  </servlet-mapping>
+</web-app>

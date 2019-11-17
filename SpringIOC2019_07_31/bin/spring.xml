@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <bean id="UserService" class="com.oracle.spring.ioc.UserServiceImpl" />
+       
+    	<!-- 通过无参构造器进行 ，必需保证对象中有 无参构造方法！！！-->
+    <bean id="user1" class="com.oracle.spring.ioc.User">
+        <!--  如果通过property标签给对象赋值，必需要有set,get方法 -->
+        <property name="id" value="44"></property>
+        <property name="name" value="奥尼尔"></property>
+    </bean>
+    <bean id="user2" class="com.oracle.spring.ioc.User">
+        <property name="id" value="35"></property>
+        <property name="name" value="死神"></property>
+        
+    </bean>
+    
+    	<!-- 通过有参构造函数构造,必需保证对象中有 有参数的构造方法！！！ -->
+    <bean id="user3" class="com.oracle.spring.ioc.User">
+         <constructor-arg name="id" value="23"></constructor-arg>
+         <constructor-arg name="name" value="qiao"></constructor-arg>
+    </bean>
+    
+    <bean id="user4" class="com.oracle.spring.ioc.UserFactory" factory-method="getUser" >
+        
+    </bean > 
+       
+       
+    </beans>

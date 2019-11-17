@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 实现spring依赖注入，首先要进行ioc -->
+    <bean id="UserService" class="com.oracle.spring.service.impl.UserServiceImpl" />
+    
+    <!-- 通过ref引用 -->
+    <!-- 依赖注入又称为属性注入，必须得保证被注入的属性，有set方法
+        必须得保证 依赖方 controller   被依赖方 service 双方都必须是spring实例化的，
+            依赖注入才能进行 -->
+    <bean id="UserController" class="com.oracle.spring.controller.UserController">
+        <property name="UserService" ref="UserService"></property>
+    </bean>
+
+       
+       
+    </beans>

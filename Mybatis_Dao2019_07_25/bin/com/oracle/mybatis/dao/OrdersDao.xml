@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.mybatis.dao.OrdersDao">
+    <resultMap type="orders" id="ordersMap">
+        <id property="id" column="id"></id>
+        <result property="ordersName" column="orders_name"/>
+        <result property="ordersMoney" column="orders_money"/>
+        <result property="ordersId" column="orders_user"/>
+    </resultMap>
+    <resultMap type="orders" id="allOrdersMap">
+        <id property="id" column="id"></id>
+        <result property="ordersName" column="orders_name"/>
+        <result property="ordersMoney" column="orders_money"/>
+        <result property="ordersId" column="orders_user"/>
+        <association property="user" javaType="user">
+            <result property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="address" column="address"/>
+            <result property="phone" column="phone"/>
+            <result property="sex" column="sex"/>
+            
+        </association>
+    </resultMap>
+    <resultMap type="orders" id="allOrdersUserMap">
+        <id property="id" column="id"></id>
+        <result property="ordersName" column="orders_name"/>
+        <result property="ordersMoney" column="orders_money"/>
+        <result property="ordersId" column="orders_user"/>
+        <association property="user" javaType="user">
+            <result property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="address" column="address"/>
+            <result property="phone" column="phone"/>
+            <result property="sex" column="sex"/>   
+        </association>
+        <collection property="goodsList" ofType="goods">
+            <result property="id" column="id"/>
+            <result property="goodsName" column="goods_name"/>
+            <result property="goodsPic" column="goods_pic"/>
+            <result property="updateTime" column="update_time"/>
+        </collection>
+        
+    </resultMap>
+    <select id="findOrdersById" parameterType="int" resultMap="ordersMap">
+        select *from orders where id=#{id}
+    </select>
+    <select id="findAllOrdersAndUser" resultMap="allOrdersMap">
+       select orders.*,user.* from orders,user where orders.`orders_user`= user.`id`
+
+    </select>
+    <select id="findAllOrderGoodsUserByUsername" resultMap="allOrdersUserMap">
+        
+        SELECT *FROM orders,orders_goods_relation,goods,USER WHERE orders.`id`=orders_goods_relation.`orders_id` AND orders_goods_relation.`goods_id`=goods.id AND
+user.id=orders.`orders_user` ;
+    </select>
+    
+    
+    
+</mapper>
